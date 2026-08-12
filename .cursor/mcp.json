@@ -1,9 +1,0 @@
-{
-  "mcpServers": {
-    "pencil": {
-      "command": "C:\\Users\\djdcv\\.pencil\\mcp\\cursor\\out\\mcp-server-windows-x64.exe",
-      "args": ["--app", "cursor"],
-      "env": {}
-    }
-  }
-}

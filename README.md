@@ -2,19 +2,27 @@
 
 Portafolio personal de **Deivid Jhon Del Carpio Vilca** — Desarrollador de Software Fullstack.
 
-## Estado
+Sitio estático (React + Vite + Tailwind) en GitHub Pages. El contenido se edita en `src/content/sections.ts`.
 
-Documentación de producto/diseño incluida de forma temporal (PRD, TRD, UXTD, prompt pen.dev). Se eliminará cuando el diseño en Pencil y el sitio estén listos.
+## Desarrollo
 
-## Docs (temporal)
+```bash
+npm install
+npm run dev
+```
 
-| Archivo | Contenido |
-|---------|-----------|
-| `01-PRD.md` | Product Requirements |
-| `02-TRD.md` | Technical Requirements |
-| `03-UXTD.md` | UX / UI direction |
-| `04-PROMPT-PENDEV.md` | Prompt para diseñar en pen.dev |
+Build: `npm run build`. Preview: `npm run preview`.
 
-## MCP pen.dev
+## Contenido
 
-Configuración del servidor MCP de Pencil en `.cursor/mcp.json` (también en la config global de Cursor). Tras instalar la extensión pen.dev, abre un archivo `.pen` y verifica en **Settings → Tools & MCP** que `pencil` esté conectado.
+- Textos y visibilidad de secciones: `src/content/sections.ts`
+- Foto: `public/assets/deivid.jpeg`
+- CV: `public/cv.pdf`
+
+## Contacto
+
+El formulario **ya funciona sin configurar nada**: al enviar, abre el cliente de correo (`mailto:`) con el mensaje listo.
+
+Formspree es opcional, para que el mensaje llegue a Gmail *sin* abrir Outlook/Mail. No hace falta para publicar el sitio.
+
+Tras el primer push a `main`, GitHub Actions publica el build. En **Settings → Pages** la fuente debe ser **GitHub Actions** (en repos `*.github.io` no se puede servir desde la rama `gh-pages`).

@@ -1,0 +1,23 @@
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f7f8fa;
+  --text: #1a1a1a;
+  --text-secondary: #666666;
+  --text-muted: #888888;
+  --border: #1a1a1a;
+  --border-subtle: #eef0f2;
+  --accent: #4a9fd8;
+  --accent-soft: #e8f4fb;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --radius: 0px;
+  --nav-h: 64px;
+  --container: 1200px;
+}

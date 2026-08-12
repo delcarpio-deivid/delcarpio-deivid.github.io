@@ -1,0 +1,24 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Product docs (local only — not the live site)
+01-PRD.md
+02-TRD.md
+03-UXTD.md
+04-PROMPT-PENDEV.md
+
+# Design source (Pencil)
+*.pen
+
+# Local agent / MCP
+.cursor/
+
+# One-off design dumps
+design-export-desktop.html
