@@ -9,6 +9,7 @@ interface ButtonProps {
   children: ReactNode;
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -25,8 +26,9 @@ export function Button({
   children,
   className = "",
   onClick,
+  disabled = false,
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center gap-8 px-24 py-12 font-body text-[14px] font-semibold transition duration-200 ${variants[variant]} ${className}`;
+  const classes = `inline-flex items-center justify-center gap-8 px-24 py-12 font-body text-[14px] font-semibold transition duration-200 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`;
 
   if (href) {
     return (
@@ -37,7 +39,7 @@ export function Button({
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick}>
+    <button type={type} className={classes} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

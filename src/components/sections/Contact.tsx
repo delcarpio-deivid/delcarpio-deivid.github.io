@@ -2,6 +2,7 @@ import { FormEvent, useState, type ReactNode } from "react";
 import { Mail, Phone } from "lucide-react";
 import { Button } from "../ui/Button";
 import { SectionBlock } from "../ui/SectionBlock";
+import { Toast, type ToastKind } from "../ui/Toast";
 import type { ContactData, SectionConfig } from "../../content/sections";
 
 const fields = [
@@ -9,36 +10,59 @@ const fields = [
   { name: "email", label: "Email", placeholder: "tu@email.com", type: "email" },
 ] as const;
 
+const AUTOREPLY = `Hola,
+
+Recibí tu mensaje desde el portafolio. Pronto estaremos en comunicación.
+
+— Deivid Jhon Del Carpio Vilca
+Arequipa, Perú`;
+
 export function Contact({ id, index, kicker, title, data }: SectionConfig<ContactData>) {
-  const [status, setStatus] = useState<"idle" | "sent" | "error">("idle");
-  const formspreeId = import.meta.env.VITE_FORMSPREE_ID;
+  const [submitting, setSubmitting] = useState(false);
+  const [toast, setToast] = useState<{ kind: ToastKind; title: string; body: string } | null>(null);
+  const formspreeId = import.meta.env.VITE_FORMSPREE_ID?.trim();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const honeypot = (form.elements.namedItem("company") as HTMLInputElement | null)?.value;
+    const honeypot = (form.elements.namedItem("_gotcha") as HTMLInputElement | null)?.value;
     if (honeypot) return;
 
     const payload = new FormData(form);
+    const visitorName = String(payload.get("name") ?? "").trim();
+    const visitorEmail = String(payload.get("email") ?? "").trim();
 
     if (!formspreeId) {
-      const name = String(payload.get("name") ?? "");
-      const email = String(payload.get("email") ?? "");
-      const message = String(payload.get("message") ?? "");
-      window.location.href = `mailto:${data.email}?subject=${encodeURIComponent(`Contacto — ${name}`)}&body=${encodeURIComponent(`${message}\n\n${email}`)}`;
+      setToast({
+        kind: "error",
+        title: "Formulario no conectado",
+        body: `Escríbeme directo a ${data.email} mientras tanto.`,
+      });
       return;
     }
 
+    setSubmitting(true);
     try {
       const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
         method: "POST",
         headers: { Accept: "application/json" },
         body: payload,
       });
-      setStatus(res.ok ? "sent" : "error");
-      if (res.ok) form.reset();
+      if (!res.ok) throw new Error("formspree");
+      form.reset();
+      setToast({
+        kind: "success",
+        title: "Mensaje enviado",
+        body: `Gracias${visitorName ? `, ${visitorName}` : ""}. Te responderé a ${visitorEmail || "tu correo"} pronto.`,
+      });
     } catch {
-      setStatus("error");
+      setToast({
+        kind: "error",
+        title: "No se pudo enviar",
+        body: `Inténtalo de nuevo o escríbeme a ${data.email}.`,
+      });
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -53,12 +77,15 @@ export function Contact({ id, index, kicker, title, data }: SectionConfig<Contac
             <ContactRow icon={<LinkedInIcon />} kind="LinkedIn" value={data.linkedin.label} href={data.linkedin.href} />
           </ul>
         </div>
-        <form className="flex flex-1 flex-col gap-16" onSubmit={onSubmit} noValidate>
-          <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+        <form className="flex flex-1 flex-col gap-16" onSubmit={onSubmit}>
+          <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+          <input type="hidden" name="_subject" value="Portafolio — nuevo mensaje" />
+          <input type="hidden" name="_autoresponse" value={AUTOREPLY} />
           {fields.map((field) => (
-            <label key={field.name} className="flex flex-col gap-8">
+            <label key={field.name} className="flex flex-col gap-8" htmlFor={field.name}>
               <span className="font-mono text-[11px] tracking-[0.8px] text-ink-muted">{field.label}</span>
               <input
+                id={field.name}
                 name={field.name}
                 type={field.type}
                 required
@@ -67,9 +94,10 @@ export function Contact({ id, index, kicker, title, data }: SectionConfig<Contac
               />
             </label>
           ))}
-          <label className="flex flex-col gap-8">
+          <label className="flex flex-col gap-8" htmlFor="message">
             <span className="font-mono text-[11px] tracking-[0.8px] text-ink-muted">Mensaje</span>
             <textarea
+              id="message"
               name="message"
               required
               rows={5}
@@ -77,19 +105,14 @@ export function Contact({ id, index, kicker, title, data }: SectionConfig<Contac
               className="min-h-[120px] border border-line-subtle bg-bg p-16 font-body text-[14px] text-ink placeholder:text-ink-muted"
             />
           </label>
-          <Button type="submit">Enviar mensaje</Button>
-          {status === "sent" ? (
-            <p className="font-mono text-[12px] text-accent" role="status">
-              Mensaje enviado.
-            </p>
-          ) : null}
-          {status === "error" ? (
-            <p className="font-mono text-[12px] text-ink-secondary" role="alert">
-              No se pudo enviar. Escríbeme a {data.email}.
-            </p>
-          ) : null}
+          <Button type="submit" disabled={submitting}>
+            {submitting ? "Enviando…" : "Enviar mensaje"}
+          </Button>
         </form>
       </div>
+      {toast ? (
+        <Toast kind={toast.kind} title={toast.title} body={toast.body} onClose={() => setToast(null)} />
+      ) : null}
     </SectionBlock>
   );
 }

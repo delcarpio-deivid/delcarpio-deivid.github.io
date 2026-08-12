@@ -21,8 +21,10 @@ Build: `npm run build`. Preview: `npm run preview`.
 
 ## Contacto
 
-El formulario **ya funciona sin configurar nada**: al enviar, abre el cliente de correo (`mailto:`) con el mensaje listo.
+El formulario envía a Formspree (sin abrir Outlook). Si el envío sale bien, aparece un aviso en pantalla.
 
-Formspree es opcional, para que el mensaje llegue a Gmail *sin* abrir Outlook/Mail. No hace falta para publicar el sitio.
-
-Tras el primer push a `main`, GitHub Actions publica el build. En **Settings → Pages** la fuente debe ser **GitHub Actions** (en repos `*.github.io` no se puede servir desde la rama `gh-pages`).
+1. Crea una cuenta en [formspree.io](https://formspree.io) con `deividdelcarpio.dev@gmail.com`.
+2. New form → copia el ID de la URL (`https://formspree.io/forms/XXXXXX` → `XXXXXX`).
+3. Local: `.env` con `VITE_FORMSPREE_ID=XXXXXX` (parte de `.env.example`).
+4. GitHub: Settings → Secrets → Actions → `VITE_FORMSPREE_ID`.
+5. Confirmación al visitante: en el form, pestaña **Workflow → Auto Response** (plan Professional). Texto sugerido: *Recibí tu mensaje. Pronto estaremos en comunicación. — Deivid*.
