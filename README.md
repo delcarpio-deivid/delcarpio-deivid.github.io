@@ -38,3 +38,10 @@ Edita un solo archivo: [`src/content/sections.ts`](src/content/sections.ts).
 | `04-PROMPT-PENDEV.md` | Prompt para diseñar en pen.dev |
 
 Cuando el diseño en Pencil esté listo, exporta tokens a `src/styles/tokens.css` y elimina estos markdowns.
+
+## MCP (Engram + pen.dev)
+
+Config en [`.cursor/mcp.json`](.cursor/mcp.json). Guía paso a paso: [`docs/MCP-SETUP.md`](docs/MCP-SETUP.md).
+
+- **Engram** — memoria persistente del agente (`engram` en PATH)
+- **Pencil / pen.dev** — diseño `.pen` en tu PC (local; no disponible en Cloud Agents)

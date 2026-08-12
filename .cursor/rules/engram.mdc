@@ -1,0 +1,35 @@
+---
+alwaysApply: true
+---
+
+## Engram Persistent Memory — Protocol
+
+You have access to Engram persistent memory via MCP tools (`mem_save`, `mem_search`, `mem_context`, `mem_session_summary`, etc.).
+
+### WHEN TO SAVE (mandatory)
+
+Call `mem_save` IMMEDIATELY after: bug fixes, architecture/design decisions, non-obvious discoveries, config/environment changes, patterns, or user preferences.
+
+Format:
+- **title**: Verb + what (short, searchable)
+- **type**: bugfix | decision | architecture | discovery | pattern | config | preference
+- **scope**: project (default) | personal
+- **topic_key** (recommended for evolving topics)
+- **content**: What / Why / Where / Learned
+
+### WHEN TO SEARCH
+
+On "remember" / "recall" / "qué hicimos" / past work: `mem_context` → `mem_search` → `mem_get_observation`.
+Also search proactively when starting related work.
+
+### SESSION CLOSE (mandatory)
+
+Before ending a session, call `mem_session_summary` with Goal, Instructions, Discoveries, Accomplished, Next Steps, Relevant Files.
+
+### AFTER COMPACTION
+
+Call `mem_context` to recover state before continuing.
+
+### PASSIVE CAPTURE
+
+End task responses with `## Key Learnings:` numbered items when useful.

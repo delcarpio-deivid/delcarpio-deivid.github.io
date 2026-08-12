@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local MCP binaries (install Engram via PATH; see docs/MCP-SETUP.md)
+.cursor/bin/
+
+# Local MCP binaries
+.cursor/bin/
