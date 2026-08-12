@@ -2,11 +2,33 @@
 
 Portafolio personal de **Deivid Jhon Del Carpio Vilca** — Desarrollador de Software Fullstack.
 
-## Estado
+## Stack
 
-Documentación de producto/diseño incluida de forma temporal (PRD, TRD, UXTD, prompt pen.dev). Se eliminará cuando el diseño en Pencil y el sitio estén listos.
+React + TypeScript + Vite · Tailwind CSS · Motion · anime.js · GitHub Pages
 
-## Docs (temporal)
+## Desarrollo
+
+```bash
+npm install
+npm run dev
+```
+
+## Contenido
+
+Edita un solo archivo: [`src/content/sections.ts`](src/content/sections.ts).
+
+- Ocultar sección: `visible: false`
+- Reordenar: cambia `order`
+- Sección nueva: componente en `src/components/sections/` + registro en `registry.tsx` + entrada en `sections.ts`
+
+## Antes de publicar
+
+1. Añade tu foto en `public/assets/deivid.jpg`
+2. Añade el CV en `public/cv.pdf`
+3. Sustituye `formspreeId` en `sections.ts` por tu ID de [Formspree](https://formspree.io) (si no, el formulario usa `mailto:`)
+4. En el repo de GitHub: **Settings → Pages → Source = GitHub Actions**
+
+## Docs de diseño (temporal)
 
 | Archivo | Contenido |
 |---------|-----------|
@@ -15,6 +37,4 @@ Documentación de producto/diseño incluida de forma temporal (PRD, TRD, UXTD, p
 | `03-UXTD.md` | UX / UI direction |
 | `04-PROMPT-PENDEV.md` | Prompt para diseñar en pen.dev |
 
-## MCP pen.dev
-
-Configuración del servidor MCP de Pencil en `.cursor/mcp.json` (también en la config global de Cursor). Tras instalar la extensión pen.dev, abre un archivo `.pen` y verifica en **Settings → Tools & MCP** que `pencil` esté conectado.
+Cuando el diseño en Pencil esté listo, exporta tokens a `src/styles/tokens.css` y elimina estos markdowns.

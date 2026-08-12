@@ -1,0 +1,55 @@
+:root {
+  /* Palette — cool neutrals + teal accent (UXTD) */
+  --color-bg: #f4f7f9;
+  --color-bg-elevated: #ffffff;
+  --color-bg-muted: #e8eef2;
+  --color-ink: #0c1520;
+  --color-ink-soft: #3d4f5f;
+  --color-ink-muted: #6b7c8a;
+  --color-border: #d0dbe3;
+  --color-accent: #0d7377;
+  --color-accent-hover: #095456;
+  --color-accent-soft: #d4eef0;
+  --color-line: #b8c9d4;
+
+  /* Typography */
+  --font-display: "Sora", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+
+  /* Impeccable spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --container: 1120px;
+  --section-pad-y: var(--space-8);
+  --header-h: 64px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-hover: 0 12px 28px -12px rgb(12 21 32 / 0.18);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --section-pad-y: var(--space-9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
